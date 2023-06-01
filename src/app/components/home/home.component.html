@@ -1,0 +1,35 @@
+
+  <!-- loading -->
+  <div class="loading start-0 top-0 w-100 vh-100 position-fixed d-flex justify-content-center align-items-center" *ngIf="isLoading">
+    <app-spinner></app-spinner>
+  </div>
+
+  <app-main-slider *ngIf="!isLoading"></app-main-slider>
+  <div class="row my-5 position-relative" *ngIf="!isLoading">
+    <app-owl-categories></app-owl-categories>
+  </div>
+
+<div class="row">
+  <div class="col-md-12 my-3">
+    <div class="d-flex">
+    <input type="text" class="form-control w-50 me-3" [(ngModel)]="searchTitle" placeholder="Search By Name"
+    (input)=" showSearchResults = searchTitle !== ''">
+    <input type="text" class="form-control w-50 ms-3" [(ngModel)]="searchBrand" placeholder="Search By Brand"
+    (input)=" showSearchResults = searchBrand !== ''">
+
+    </div>
+  </div>
+</div>
+
+
+	<div class="row" *ngIf="!isLoading" >
+    <div class="col-12 col-sm-6 col-md-3 col-lg-2"  *ngFor="let product of products |searchPipe:searchTitle|brandSearch:searchBrand " >
+    <app-products [item]="product" [addToWishList]="wishList.indexOf(product._id) >=0" ></app-products>
+  </div>
+
+    <div class="text-center my-5" *ngIf="showSearchResults && (products | searchPipe: searchTitle).length === 0  && (products | brandSearch: searchBrand).length === 0
+      || showSearchResults && (products | searchPipe: searchTitle).length === 0 ||showSearchResults && (products | brandSearch: searchBrand).length === 0">
+      <img class="w-100 " src="../../../assets/images/empty.svg" height="550" alt="">
+    </div>
+
+  </div>

@@ -1,0 +1,38 @@
+<!-- loading  -->
+<div *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>
+
+<!-- empty cart -->
+
+<div *ngIf="cartDetails.products.length === 0 " class="text-center fw-bold my-5 py-5">
+  <img class="w-100 " src="../../../assets/images/empty.svg" height="550" alt="">
+</div>
+
+<!-- cart -->
+<div class="bg-main-light p-5 my-5" *ngIf="cartDetails.products.length > 0">
+  <h3>Shop Cart</h3>
+  <h6 class="text-main">
+    Total Price : {{cartDetails.totalCartPrice}} EGP
+  </h6>
+
+  <div *ngFor="let product of cartDetails.products"  class="row align-items-center border-bottom py-3 ">
+    <div class="col-md-1">
+      <img class="w-100" [src]="product.product.imageCover" alt="">
+    </div>
+    <div class="col-md-11 d-flex justify-content-between">
+      <div>
+        <h6>{{product.product.title}}</h6>
+        <h6 class="text-main">Price : {{product.price}}</h6>
+        <button class="btn m-0 p-0"  (click)="removeItem(product?.product._id)"> <i class="fa-regular text-main fa-trash-can" (click)="removeItem(product?.product._id)" ></i> Remove </button>
+      </div>
+      <div>
+        <button class="btn border-main" (click)="updateItemCount(product?.product._id , product.count + 1 ); product.count = product.count + 1">+</button>
+        <span class="mx-2">{{product.count}}</span>
+        <button class="btn border-main" (click)="updateItemCount(product?.product._id , product.count - 1); product.count = product.count - 1">-</button>
+      </div>
+    </div>
+
+  </div>
+  <button class="btn bg-main text-white d-flex align-items-center justify-content-center" [routerLink]="['/checkout']"><span>Online Payment</span> <img src="assets/images/Visa_Inc._logo.svg"  height="25" width="25" class="ms-2" alt=""></button>
+</div>

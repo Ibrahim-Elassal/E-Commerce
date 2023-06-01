@@ -1,0 +1,74 @@
+
+<div class="w-75 mx-auto py-5 my-5">
+  <h4>Register Now : </h4>
+  <div *ngIf="errorMsg" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
+  <form (ngSubmit)="handleRegister(registerForm)" [formGroup] = "registerForm"  >
+    <label for="name">Name</label>
+    <input formControlName="name" type="text" id="name" class="form-control mb-2">
+
+    <div *ngIf="registerForm.get('name')?.errors && registerForm.get('name')?.touched" class="alert alert-danger">
+      <p *ngIf="registerForm.get('name')?.getError('minlength')" class="m-2">Name minLength is Three</p>
+      <p *ngIf="registerForm.get('name')?.getError('pattern')" class="m-2">Name is inValid</p>
+      <p *ngIf="registerForm.get('name')?.getError('required')" class="m-2">Name is Required</p>
+    </div>
+
+    <label for="email">email</label>
+    <input formControlName="email" type="email" id="email" class="form-control mb-2">
+
+    <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched" class="alert alert-danger">
+      <p *ngIf="registerForm.get('email')?.getError('email')" class="m-2">Email inValid </p>
+      <p *ngIf="registerForm.get('email')?.getError('required')" class="m-2">Email is Required</p>
+    </div>
+
+    <label for="password">password</label>
+    <div class="input-group">
+      <input type="{{ showPassword ? 'text' : 'password' }}"   [(ngModel)]="registerForm.value.password" formControlName="password"  id="password" class="form-control mb-2">
+
+      <span class="input-group-text bg-white mb-2" (click)="toggleShowPassword()" *ngIf="showPassword">
+        <i class="fa-regular fa-eye"></i>
+    </span>
+    <span class="input-group-text bg-white mb-2" (click)="toggleShowPassword()" *ngIf="!showPassword">
+        <i class="fa-regular fa-eye-slash"></i>
+    </span>
+
+    </div>
+
+    <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched" class="alert alert-danger">
+      <p *ngIf="registerForm.get('password')?.getError('pattern')" class="m-2">password must start with upperCase an lowercase then from 3 to 10  </p>
+      <p *ngIf="registerForm.get('password')?.getError('required')" class="m-2">password is Required</p>
+    </div>
+
+    <label for="rePassword">rePassword</label>
+    <div class="input-group">
+      <input type="{{ showRepeatPassword ? 'text' : 'password' }}"   [(ngModel)]="registerForm.value.rePassword" formControlName="rePassword"  id="password" class="form-control mb-2">
+      <span class="input-group-text bg-white mb-2" (click)="toggleShowRepeatPassword()" *ngIf="showRepeatPassword">
+        <i class="fa-regular fa-eye"></i>
+    </span>
+    <span class="input-group-text bg-white mb-2" (click)="toggleShowRepeatPassword()" *ngIf="!showRepeatPassword">
+        <i class="fa-regular fa-eye-slash"></i>
+    </span>
+    </div>
+
+    <div *ngIf="registerForm.get('rePassword')?.errors && registerForm.get('rePassword')?.touched" class="alert alert-danger">
+      <p *ngIf="registerForm.get('rePassword')?.getError('required')" class="m-2">password is Required</p>
+      <p class="m-0" *ngIf="registerForm.get('rePassword')?.getError('passwordMatch')">password must be matched</p>
+
+    </div>
+
+    <label for="phone">phone</label>
+    <input formControlName="phone" type="tel" id="phone" class="form-control mb-2">
+
+    <div *ngIf="registerForm.get('phone')?.errors && registerForm.get('phone')?.touched" class="alert alert-danger">
+      <p *ngIf="registerForm.get('phone')?.getError('pattern')" class="m-2">Enter Valid Egyptian Pnone Number</p>
+      <p *ngIf="registerForm.get('phone')?.getError('required')" class="m-2">phone is Required</p>
+    </div>
+
+    <button [disabled]="registerForm.invalid" class="btn d-block border-0 text-white ms-auto  bg-main" type="submit">
+      <i *ngIf="isLoading" class="fa-solid fa-circle-notch fa-spin"></i>
+      <span *ngIf="!isLoading">Register</span>
+    </button>
+
+  </form>
+</div>

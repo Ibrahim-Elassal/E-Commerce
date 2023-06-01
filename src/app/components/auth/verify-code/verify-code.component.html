@@ -1,0 +1,48 @@
+<div id="resetPassword" class="w-75 mx-auto py-5 my-5">
+  <h4>Verification Code  </h4>
+  <p>Enter the code that we have sent through your email :</p>
+  <div *ngIf="errorMsg !== null && errorMsg !== undefined && errorMsg.length > 0" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
+  <form  *ngIf="verifyCode" (ngSubmit)="handleVerification(verifyCode)"  [formGroup]="verifyCode">
+
+    <div class="input my-5">
+      <div >
+
+          <input formControlName="resetCode" class="w-50 "  type="text" class="form-control" > <br>
+
+          <div *ngIf="verifyCode.get('resetCode')?.errors && verifyCode.get('resetCode')?.touched" class="alert alert-danger">
+            <p *ngIf="verifyCode.get('resetCode')?.getError('maxlength')" class="m-2">resetCode must be at least 6 numbers long</p>
+            <p *ngIf="verifyCode.get('resetCode')?.getError('pattern')" class="m-2">resetCode must be at least 6 numbers long</p>
+            <p *ngIf="verifyCode.get('resetCode')?.getError('required')" class="m-2">resetCode is Required</p>
+            <p *ngIf="verifyCode.get('resetCode')?.getError('max')" class="m-2">resetCode is 6</p>
+
+          </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="alert alert-success" role="alert" *ngIf="success">
+      Success
+    </div>
+
+  <div class="d-md-flex justify-content-between ">
+
+    <button  class="btn d-block px-5 border-0 text-white  bg-main" type="submit">
+      <i *ngIf="isLoading" class="fa-solid fa-circle-notch fa-spin"></i>
+          <span class="ms-2">Verify Code</span>
+    </button>
+
+    <button (click)="handlePassword()"  class="btn  d-block mt-4 mt-md-0  px-5 border-0 text-white  bg-main" type="submit">
+      <i *ngIf="Loading" class="fa-solid fa-circle-notch fa-spin "></i>
+          <span class="ms-2"><i class="fa-solid fa-rotate-right"></i> Resend Code</span>
+    </button>
+
+  </div>
+
+  </form>
+
+</div>
+
