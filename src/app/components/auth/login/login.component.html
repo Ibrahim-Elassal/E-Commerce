@@ -1,0 +1,53 @@
+
+<div class="w-75 mx-auto py-5 my-5">
+
+  <h4>Login Now : </h4>
+
+  <div *ngIf="errorMsg !== null && errorMsg !== undefined && errorMsg.length > 0" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
+
+    <form *ngIf="loginForm" (ngSubmit)="handleLogIn(loginForm)"  [formGroup]="loginForm">
+    <label for="email">email</label>
+    <input formControlName="email" type="email" id="email" class="form-control mb-2">
+
+    <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched" class="alert alert-danger">
+      <p *ngIf="loginForm.get('email')?.getError('email')" class="m-2">Email inValid </p>
+      <p *ngIf="loginForm.get('email')?.getError('required')" class="m-2">Email is Required</p>
+    </div>
+
+    <label for="password">password</label>
+    <div class="input-group ">
+      <input type="{{ showPassword ? 'text' : 'password' }}"   [(ngModel)]="loginForm.value.password" formControlName="password" id="password" class="form-control mb-2" >
+
+      <span class="input-group-text bg-white mb-2" (click)="toggleShowPassword()" *ngIf="showPassword">
+          <i class="fa-regular fa-eye"></i>
+      </span>
+      <span class="input-group-text bg-white mb-2" (click)="toggleShowPassword()" *ngIf="!showPassword">
+          <i class="fa-regular fa-eye-slash"></i>
+      </span>
+
+    </div>
+
+    <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched" class="alert alert-danger">
+      <p *ngIf="loginForm.get('password')?.getError('pattern')" class="m-2">password must start with upperCase an lowercase then from 3 to 10  </p>
+      <p *ngIf="loginForm.get('password')?.getError('required')" class="m-2">password is Required</p>
+    </div>
+
+
+    <div class="d-flex justify-content-between">
+      <!-- ms-auto -->
+      <div class="forgetPassword">
+        <a routerLink="/forgetPassword">Forget Password</a>
+      </div>
+
+      <button   (click)="handleLogIn(loginForm)" [disabled]="loginForm.invalid" class="btn d-block px-5 border-0 text-white  bg-main" type="submit">
+        <i *ngIf="isLoading" class="fa-solid fa-circle-notch fa-spin"></i>
+                <span class="ms-2">login</span>
+      </button>
+
+    </div>
+
+  </form>
+</div>
+

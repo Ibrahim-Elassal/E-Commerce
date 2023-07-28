@@ -1,0 +1,9 @@
+.success-message {
+  position: fixed !important;
+  top: 10%  !important;
+  right: 1%  !important;
+  /* transform: translateX(150%)  !important; */
+  padding: 10px  !important;
+  border-radius: 5px  !important;
+  z-index:99999 !important
+}

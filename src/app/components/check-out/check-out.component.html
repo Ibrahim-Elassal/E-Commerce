@@ -1,0 +1,22 @@
+<div class="container pt-5 mt-5 w-50 mx-auto">
+  <div class="row">
+    <form [formGroup]="shippingForm">
+      <label for="details"> Enter Your Details</label>
+      <input type="text" id="details" placeholder="Details..." class="form-control my-3" formControlName="details">
+
+      <label for="phone"> Enter Your Phone Number</label>
+      <input type="tel" id="phone" class="form-control my-3" placeholder="phone number..." formControlName="phone">
+      <div *ngIf="shippingForm.get('phone')?.errors && shippingForm.get('phone')?.touched" class="alert alert-danger">
+        <p *ngIf="shippingForm.get('phone')?.getError('pattern')" class="m-2">Enter Valid Egyptian Pnone Number</p>
+        <p *ngIf="shippingForm.get('phone')?.getError('required')" class="m-2">phone is Required</p>
+      </div>
+
+      <label for="city"> Enter Your City</label>
+      <input type="text" id="city" class="form-control my-3" placeholder="your city..." formControlName="city">
+      <button class="btn bg-main text-white d-block ms-auto my-2" (click)="payementForm(shippingForm)" type="submit" [disabled]="shippingForm.invalid">
+        <span *ngIf="!isLoading">Pay</span>
+        <i *ngIf="isLoading" class="fa-solid fa-circle-notch fa-spin"></i>
+      </button>
+    </form>
+  </div>
+</div>
