@@ -33,10 +33,9 @@ export class CheckOutComponent implements OnInit   {
 
   payementForm(shippingForm:FormGroup){
     this.isLoading = true ;
-    this._ActivatedRoute.paramMap.subscribe(res=> this.cardId = res.get('id')||'' )
-    this._ActivatedRoute.paramMap.subscribe(res=> this.cardOwner = res.get('owner')||'' )
+
     if (shippingForm.valid) {
-      this._CartService.onlinePayement(this.cardId,shippingForm.value ,this.cardOwner ).subscribe({
+      this._CartService.onlinePayement(this.cardId,shippingForm.value ).subscribe({
         next: res =>{
           location.href = res.session.url
           this.isLoading = false

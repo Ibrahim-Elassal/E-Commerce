@@ -26,7 +26,7 @@ const routes: Routes = [
   {path:'cart' ,  canActivate:[AuthGuard], component:CartComponent},
   {path:'brands' , canActivate:[AuthGuard], component:BrandsComponent},
   {path:'products' , canActivate:[AuthGuard], component:AllProductsComponent},
-  {path:'checkout/:id/:owner' , canActivate:[AuthGuard], component:CheckOutComponent},
+  {path:'checkout' , canActivate:[AuthGuard], component:CheckOutComponent},
   {path:'wishList' , canActivate:[AuthGuard], component:WishListComponent},
   {path:'allorders' , canActivate:[AuthGuard], component:AllordersComponent},
   {path:'prductsDetails/:id' , canActivate:[AuthGuard], component:ProductDetailsComponent},
